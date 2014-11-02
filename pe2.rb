@@ -9,3 +9,5 @@ while x <= 4000000
 end
 puts sum
 end
+
+# answer is 9973080
