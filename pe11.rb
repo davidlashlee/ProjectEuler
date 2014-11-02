@@ -91,24 +91,20 @@ class Read
 		end
 	end
 
-
-
-
-
-
-
-
+	def solve
+		open
+		diag_1
+		diag_2
+		vertical
+		horizontal
+	end
 
 end
 
 
 
 z = Read.new
-z.open
-z.diag_1
-z.diag_2
-z.vertical
-z.horizontal
+z.solve
 
 # answer: 70600674
 
