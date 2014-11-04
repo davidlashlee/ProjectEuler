@@ -31,11 +31,11 @@ class Problem
 		@sequence_length = 0
 		while input > 1
 			if @mem[input] == nil
-			@mem[input] = @sequence_length
-			@sequence_length += 1
-			input = sort(input)
+				@mem[input] = @sequence_length
+				@sequence_length += 1
+				input = sort(input)
 			else
-			input = 1
+				input = 1
 			end
 		end
 	end
@@ -44,13 +44,13 @@ class Problem
 		loopnum.times do |num|
 			sequence(num)
 		end
-		@mem.each {|key,value|
+		@mem.each do |key,value|
 			if value > @length
 				@length = value
 				@answer = key
 			end
 
-		}
+		end
 	end
 
 
