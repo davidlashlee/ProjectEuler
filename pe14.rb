@@ -1,10 +1,13 @@
 class Problem
-	attr_accessor :length, :answer
+	attr_accessor :length, :answer, :temp_answer
 
 	def initialize(num)
+		@length ||= 0
+		@mem = Hash.new
 		solve(num)
 		puts "answer: #{answer}"
 		puts "Collatz Sequence Length: #{length}"
+		
 	end
 
 	def divide(input)
@@ -25,15 +28,15 @@ class Problem
 
 	def sequence(input)
 		inputnum = input
-		@container = []
-		@length ||= 0
+		@sequence_length = 0
 		while input > 1
+			if @mem[input] == nil
+			@mem[input] = @sequence_length
+			@sequence_length += 1
 			input = sort(input)
-			@container << sort(input)
-		end
-		if @container.length > @length
-			@length = @container.length
-			@answer = inputnum
+			else
+			input = 1
+			end
 		end
 	end
 
@@ -41,6 +44,13 @@ class Problem
 		loopnum.times do |num|
 			sequence(num)
 		end
+		@mem.each {|key,value|
+			if value > @length
+				@length = value
+				@answer = key
+			end
+
+		}
 	end
 
 
@@ -50,4 +60,4 @@ z = Problem.new(1000000)
 
 # answer: 837799
 # Collatz Sequence Length: 524
-# [Finished in 32.1s]
+# [Finished in 14.4s]
