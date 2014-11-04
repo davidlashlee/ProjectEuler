@@ -20,9 +20,11 @@ class Problem
 		to.times do |idx|
 			print humanize[idx]
 		end
+		puts "\n"
 	end
 end
 
 Problem.new(10)
 
 # answer: 5537376230
+#[Finished in 0.1s]
