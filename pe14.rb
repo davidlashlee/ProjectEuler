@@ -28,16 +28,17 @@ class Problem
 
 	def sequence(input)
 		inputnum = input
-		@sequence_length = 0
+		@sequence_length = 1
 		while input > 1
-			if @mem[input] == nil
-				@mem[input] = @sequence_length
+			if @mem[input] != nil
+				@sequence_length += @mem[input]
+				input = 1
+			else
 				@sequence_length += 1
 				input = sort(input)
-			else
-				input = 1
 			end
 		end
+		@mem[inputnum] = @sequence_length
 	end
 
 	def solve(loopnum)
