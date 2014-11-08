@@ -20,6 +20,7 @@ twodigit = {1 => "ten", 2 => "twenty", 3 => "thirty", 4 => "fourty", 5 => "fifty
 	end
 end
 
+#[finishes in 0.1s]
 
 
 
