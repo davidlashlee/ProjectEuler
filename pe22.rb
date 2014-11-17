@@ -86,18 +86,15 @@ class Problem
 			@points[location_value] = name_value * (location_value + 1)
 		end
 	end
-
-
-
-
-
 end
 
 z = Problem.new
 
 
 
-
+## ANSWER
+# 871198282
+# [Finished in 0.2s]
 
 
 
