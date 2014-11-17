@@ -1,57 +1,79 @@
+# Let d(n) be defined as the sum of proper divisors of n (numbers less than n which divide evenly into n).
+# If d(a) = b and d(b) = a, where a ≠ b, then a and b are an amicable pair and each of a and b are called amicable numbers.
+
+# For example, the proper divisors of 220 are 1, 2, 4, 5, 10, 11, 20, 22, 44, 55 and 110; therefore d(220) = 284. The proper divisors of 284 are 1, 2, 4, 71 and 142; so d(284) = 220.
+
+# Evaluate the sum of all the amicable numbers under 10000.
+require 'Prime'
+
 class Problem
 
-	attr_accessor :input_divisor_sum, :input_divisors, :pair_sum
+	attr_accessor :prime_fac, :fac_total, :pairs
+
 	def initialize(input)
-		@input_divisors = Hash.new
-		@input_divisor_sum = Hash.new
-		@pairs ||= [0]
-		bundle(input)
-		divisor_sum
-		find_pairs
-		puts @pairs.max
-		
-
+		@prime_fac = Hash.new
+		@fac_total = Hash.new
+		@pairs = []
+		solve(input)
+		sum_of_pairs
 	end
 
-	def divisors(input)
-		@input_divisors[input] ||= []
-		input.times do |number|
-			if number >= 1 and input % number == 0
-				@input_divisors[input] << number
-			end
+	def prime_factor(input)
+		unless input == 0 
+			then @prime_fac[input] = Prime.prime_division(input)
 		end
 	end
 
-	def bundle(input)
-		input.times do |i|
-			divisors(i)
-		end
-	end
-
-	def divisor_sum
-		@input_divisors.each_pair do |key,value|
-			sum = 0
-			value.each do |divisor|
-				sum += divisor
+	def factor_sum(input)
+		@fac_total[input] ||= 1
+		unless @prime_fac[input] == nil
+			# puts "prime factors #{@prime_fac[input]}"
+			@prime_fac[input].each do |i|
+				@fac_total[input] *= (((i[0])**(i[1]+1))-1)/(i[0]-1)
 			end
-			@input_divisor_sum[key] = sum
+			@fac_total[input] -= input
 		end
 	end
 
 	def find_pairs
-		@input_divisor_sum.each_pair do |key, value|
-			if @input_divisor_sum[key] == @input_divisor_sum[value] and @input_divisor_sum[key] <= 10000
-				@pairs << @input_divisor_sum[key]
+		@fac_total.each_pair do |key, value|
+			if @fac_total[key] == value and @fac_total[value] == key and key != value
+				# puts "found pair #{key} => #{fac_total[key]} == #{value} => #{@fac_total[value]}"
+				@pairs << key
+				# @pairs << @fac_total[value]
 			end
 		end
-		@pairs.uniq!
-		puts @pairs.max
 	end
 
 
 
-end
+	def solve(input)
+		
+		input.times do |i|
+			prime_factor(i)
+		end
+		input.times do |i|
+			factor_sum(i)
+		end
+		find_pairs
 
+		puts @pairs.max
+	end
+
+	def sum_of_pairs
+		@answer = 0
+		@pairs.each do |i|
+			if i > 1 and i <= 10000
+				@answer += i
+			end
+		end
+		puts @answer
+	end
+
+end
 z =Problem.new(10000)
 
 
+# 6368
+# 31626
+# [Finished in 0.3s]

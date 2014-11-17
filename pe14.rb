@@ -18,8 +18,7 @@ class Problem
 		solve(num)
 		puts "answer: #{answer}"
 		puts "Collatz Sequence Length: #{length}"
-		puts "mem length: #{mem.length}"
-		
+		puts "mem length: #{mem.length}"	
 	end
 
 	def divide(input)
